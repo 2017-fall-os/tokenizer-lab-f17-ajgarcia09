@@ -5,22 +5,7 @@
 #include <fcntl.h> //for read
 #include "myToc.h"
 
-/*int countWords(char * buf, int numBytesRead){
-  int numWords = 0;
-  char lastChar;
-  char *indexAtBuf, *pBufLImit;
-  pBufLImit = buf + numBytesRead;
-
-  for(indexAtBuf = buf; indexAtBuf != pBufLImit; indexAtBuf++){
-    lastChar = *indexAtBuf;
-    if(lastChar == ' ' || lastChar == '\n'){
-      numWords++;
-    }
-  }
-  return numWords;
-  }*/
-
-int main(){
+void readInput(){
   int numBytesRead;
   int bufLen = 1024;
   char buf[bufLen];
@@ -31,5 +16,23 @@ int main(){
   int wordCount = countWords(buf, numBytesRead);
   printf("wordCount is:%d\n",wordCount);
 
+}
+void promptUser(){
+  int numBytesRead;
+  int bufLen = 1024;
+  char buf[bufLen];
+
+      printf("Enter Sentence:\n");
+      numBytesRead = read(0, &buf, bufLen);
+      printf("Sentence entered!\n");
+      printf("numBytes entered is:%d\n", numBytesRead);
+      int wordCount = countWords(buf, numBytesRead);
+      printf("wordCount is:%d\n",wordCount);
+
+  
+}
+
+int main(){
+  promptUser();
   return 0;
 }
