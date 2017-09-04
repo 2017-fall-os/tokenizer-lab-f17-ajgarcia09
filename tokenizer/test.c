@@ -5,7 +5,7 @@
 #include <fcntl.h> //for read
 #include "myToc.h"
 
-void readInput(){
+/*void readInput(){
   int numBytesRead;
   int bufLen = 1024;
   char buf[bufLen];
@@ -13,10 +13,10 @@ void readInput(){
   numBytesRead = read(0, &buf, bufLen);
   printf("Sentence entered!\n");
   printf("numBytes entered is:%d\n", numBytesRead);
-  int wordCount = countWords(buf, numBytesRead);
+  int wordCount = countWords(buf, numBytesRead, ' ');
   printf("wordCount is:%d\n",wordCount);
 
-}
+  }*/
 void promptUser(){
   int numBytesRead;
   int bufLen = 1024;
@@ -26,7 +26,7 @@ void promptUser(){
       numBytesRead = read(0, &buf, bufLen);
       printf("Sentence entered!\n");
       printf("numBytes entered is:%d\n", numBytesRead);
-      int wordCount = countWords(buf, numBytesRead);
+      int wordCount = countWords(buf, numBytesRead, ' ');
       printf("wordCount is:%d\n",wordCount);
 
   
