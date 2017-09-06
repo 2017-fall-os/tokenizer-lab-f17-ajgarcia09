@@ -5,34 +5,33 @@
 #include <fcntl.h> //for read
 #include "myToc.h"
 
-/*void readInput(){
+#define BUFLEN 1024
+
+void readInput(){
   int numBytesRead;
-  int bufLen = 1024;
-  char buf[bufLen];
-  printf("Enter sentence:\n");
-  numBytesRead = read(0, &buf, bufLen);
+  char buf[BUFLEN];
+  char delim = ' ';
+  write(1,"$ ",2);
+  numBytesRead = read(0, &buf, BUFLEN);
   printf("Sentence entered!\n");
   printf("numBytes entered is:%d\n", numBytesRead);
-  int wordCount = countWords(buf, numBytesRead, ' ');
+  int wordCount = countWords(buf, numBytesRead, delim);
   printf("wordCount is:%d\n",wordCount);
 
-  }*/
-void promptUser(){
-  int numBytesRead;
-  int bufLen = 1024;
-  char buf[bufLen];
+  }
 
-      printf("Enter Sentence:\n");
-      numBytesRead = read(0, &buf, bufLen);
-      printf("Sentence entered!\n");
-      printf("numBytes entered is:%d\n", numBytesRead);
-      int wordCount = countWords(buf, numBytesRead, ' ');
-      printf("wordCount is:%d\n",wordCount);
-
-  
+void callMyToc(){
+int bufLen = 1024;
+  char buf[BUFLEN];
+  char delim = ' ';
+  char ** mytoken =  mytoc(buf, delim);
 }
+  
 
 int main(){
-  promptUser();
+
+  readInput();
+  //callMyToc();
+  
   return 0;
 }
