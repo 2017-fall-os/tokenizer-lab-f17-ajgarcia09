@@ -44,7 +44,7 @@ char ** mytoc(char *str, char delim){
   
  int numBytesRead;
  write(1,"$ ",2);
- numBytesRead = read(0, &str, BUFLEN);
+ numBytesRead = read(0, str, BUFLEN);
  printf("Sentence entered!\n");
  printf("numBytes entered is:%d\n", numBytesRead);
  int wordCount = countWords(str, numBytesRead, delim);
