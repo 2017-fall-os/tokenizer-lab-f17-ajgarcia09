@@ -10,5 +10,7 @@ char ** allocateTokens(char ** tokenVec, char *str,char delim);
 
 char * copyToken(char *str);
 
+void printTokenVec(char ** tokenVec, int wordCount);
+
 
 #endif

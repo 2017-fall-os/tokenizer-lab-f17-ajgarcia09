@@ -67,9 +67,21 @@ char ** allocateTokens(char ** tokenVec, char *str, char delim){
     tokLength = 0; //reset token length
   }
   }
-
+ 
   return tokenVec;
 }
+
+void printTokenVec(char ** tokenVec, int wordCount){
+  printf("entered printTokenVec function\n");
+  for(int i = 0; i < wordCount; i++){
+    write(1,tokenVec[i],sizeof(tokenVec[i])-1);
+    free(tokenVec[i]);
+    }
+  free(tokenVec);
+}
+
+
+    //void print2(char** tokenVec){
 
 char ** mytoc(char *str, char delim){
   
@@ -84,7 +96,11 @@ char ** mytoc(char *str, char delim){
  char** tokenVec = (char **)calloc(wordCount+1,sizeof(char *));
 
  tokenVec = allocateTokens(tokenVec, str,delim);
-
+ tokenVec[wordCount] = (char *)0;
+ /*print contents of tokenVec to stdout
+   and free the memory*/
+ printTokenVec(tokenVec, wordCount);
+ 
  return tokenVec;
 
 }
