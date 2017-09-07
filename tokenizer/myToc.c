@@ -7,63 +7,84 @@
 #include <assert.h>
 #include "myToc.h"
 
-#define BUFLEN 1024
+#define BUFLEN 1024    
+    
 
-int countWords(char * buf, int numBytesRead, char delim){
+int countWords(char * str, char delim){
+  int wordCount = 0;
+  while(*str){
+    while(*str == delim){
+      str++;
+    }
+    if(*str != 0){
+      wordCount++;
+    }
+    while(*str && (*str != delim)){
+      str++;
+    }
+  }
+  printf("wordCount = %d\n",wordCount);
+  return wordCount;
+ }
+/*	
+int countWords(char * str, int numBytesRead, char delim){
   printf("entered countWords\n");
-  int numWords = 0;  
+  int wordCount = 0;  
   assert(numBytesRead >0);
   int i = 0;
   
-  //don't count initial blank spaces
-  while(buf[i] == delim){
-    printf("entered while loop\n");
-    i++;
+  for(; str[i] != 0 ; i++){
+    if(str[i] == delim){
+       continue;
+    }
+    if(str[i]){
+      wordCount++;
+    }
+    if(str[i] && str[i] != delim){
+      continue;
+    }
   }
+      
+   printf("numWords:%d\n",wordCount);
+   return wordCount;
+   }*/
 
-for(; buf[i] != 0 ; i++){
-  if(buf[i] == delim || buf[i] == '\n'){
-    numWords++;
-    printf("numWords:%d\n",numWords);
+char * copyToken(char *str, int tokLength, int startIndex){
+  char *strCopy = (char *)malloc(tokLength+1);
+ int i =startIndex;
+  /*copy each character from the current
+    tokien in str into strCopy*/
+  for(; i < tokLength; i++){
+    strCopy[i] = str[i];
   }
- }
-printf("leaving countWords\n");
-  return numWords;
-}
-
-char * copyToken(char *str){
-  int length;
-  //compute the length of str
-  for(length =0; str[length]; length++)
-    ;
-  char *strCopy = (char *)malloc(length+1);
-
-  //copy each character from str into strCopy;
-  for(length =0; str[length]; length++){
-    strCopy[length] = str[length];
-  }
-  strCopy[length] = 0;
+  strCopy[tokLength] = 0;
   return strCopy;
   
 }
 
+
+ 
 char ** allocateTokens(char ** tokenVec, char *str, char delim){
+
   int tokLength =0;
   int tokNum=0;
-  for(int i =0; str[i]!=0; i++){
+  int startIndex =0;
+  for(int i =startIndex; str[i]!=0; i++){
     printf("entered toklength for loop\n");
     if(str[i] != delim && str[i] != '\n'){
       tokLength++;
       printf("tokLength: %d\n", tokLength);
     }
     else{
-      printf("entered else\n");  
+    printf("entered else\n");  
     printf("tokLength: %d\n",tokLength);
     tokenVec[tokNum] = (char *)malloc(tokLength +1);
     //copy the current token to this array, add a 0 char terminator
-    tokenVec[tokNum] = copyToken(str);
+    tokenVec[tokNum] = copyToken(str,tokLength,startIndex);
     tokNum++; //go to the next token
+     startIndex = tokLength+1;
     tokLength = 0; //reset token length
+    
   }
   }
  
@@ -79,32 +100,30 @@ for(int i = 0; i < wordCount; i++){
   printf("i = %d\n",i);
     printf("size of index: %d\n", sizeof(tokenVec[i])-1);
      write(1,tokenVec[i],sizeof(tokenVec[i])-1);
-     //free(tokenVec[i]);
+     free(tokenVec[i]);
     }
-  //free(tokenVec);
+  free(tokenVec);
 }
 
 
-    //void print2(char** tokenVec){
-
 char ** mytoc(char *str, char delim){
-  
- int numBytesRead;
- write(1,"$ ",2);
- numBytesRead = read(0, str, BUFLEN);
+  char terminator[BUFLEN] = "exit"; 
+
+  write(1,"$ ",2);
+ int numBytesRead = read(0, str, BUFLEN);
+ str[numBytesRead] = 0; //remove '\n' from end of str
  printf("Sentence entered!\n");
  printf("numBytes entered is:%d\n", numBytesRead);
- int wordCount = countWords(str, numBytesRead, delim);
+ int wordCount = countWords(str, delim);
  printf("wordCount is:%d\n",wordCount);
 
  char** tokenVec = (char **)calloc(wordCount+1,sizeof(char *));
 
- tokenVec = allocateTokens(tokenVec, str,delim);
+ /*tokenVec = allocateTokens(tokenVec, str,delim);
  tokenVec[wordCount] = (char *)0;
  /*print contents of tokenVec to stdout
-   and free the memory*/
- printTokenVec(tokenVec, wordCount);
- 
+   and free the memory
+   printTokenVec(tokenVec, wordCount);*/
  return tokenVec;
 
 }
