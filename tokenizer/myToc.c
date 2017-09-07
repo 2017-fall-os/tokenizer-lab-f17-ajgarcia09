@@ -43,7 +43,6 @@ char * copyToken(char *str){
     strCopy[length] = str[length];
   }
   strCopy[length] = 0;
-
   return strCopy;
   
 }
@@ -73,11 +72,16 @@ char ** allocateTokens(char ** tokenVec, char *str, char delim){
 
 void printTokenVec(char ** tokenVec, int wordCount){
   printf("entered printTokenVec function\n");
-  for(int i = 0; i < wordCount; i++){
-    write(1,tokenVec[i],sizeof(tokenVec[i])-1);
-    free(tokenVec[i]);
+  printf("wordCount: %d\n ", wordCount);
+  printf("tokenVec[0]: %s\n",tokenVec[0]);
+  printf("tokenVec[1]: %s\n",tokenVec[1]);
+for(int i = 0; i < wordCount; i++){
+  printf("i = %d\n",i);
+    printf("size of index: %d\n", sizeof(tokenVec[i])-1);
+     write(1,tokenVec[i],sizeof(tokenVec[i])-1);
+     //free(tokenVec[i]);
     }
-  free(tokenVec);
+  //free(tokenVec);
 }
 
 
