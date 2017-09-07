@@ -31,6 +31,23 @@ printf("leaving countWords\n");
   return numWords;
 }
 
+char * copyToken(char *str){
+  int length;
+  //compute the length of str
+  for(length =0; str[length]; length++)
+    ;
+  char *strCopy = (char *)malloc(length+1);
+
+  //copy each character from str into strCopy;
+  for(length =0; str[length]; length++){
+    strCopy[length] = str[length];
+  }
+  strCopy[length] = 0;
+
+  return strCopy;
+  
+}
+
 char ** allocateTokens(char ** tokenVec, char *str, char delim){
   int tokLength =0;
   int tokNum=0;
@@ -45,7 +62,7 @@ char ** allocateTokens(char ** tokenVec, char *str, char delim){
     printf("tokLength: %d\n",tokLength);
     tokenVec[tokNum] = (char *)malloc(tokLength +1);
     //copy the current token to this array, add a 0 char terminator
-    
+    tokenVec[tokNum] = copyToken(str);
     tokNum++; //go to the next token
     tokLength = 0; //reset token length
   }
