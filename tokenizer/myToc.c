@@ -49,12 +49,12 @@ int countWords(char * str, int numBytesRead, char delim){
    return wordCount;
    }*/
 
-char * copyToken(char *str, int tokLength, int startIndex){
+char * copyToken(char *str, int tokLength){
+printf("entered copyToken");
   char *strCopy = (char *)malloc(tokLength+1);
- int i =startIndex;
   /*copy each character from the current
-    tokien in str into strCopy*/
-  for(; i < tokLength; i++){
+    token in str into strCopy*/
+  for(int i = 0; *str; i++){
     strCopy[i] = str[i];
   }
   strCopy[tokLength] = 0;
@@ -68,23 +68,23 @@ char ** allocateTokens(char ** tokenVec, char *str, char delim){
 
   int tokLength =0;
   int tokNum=0;
-  int startIndex =0;
-  for(int i =startIndex; str[i]!=0; i++){
+  while(*str){
     printf("entered toklength for loop\n");
-    if(str[i] != delim && str[i] != '\n'){
+    if(*str != delim && *str!= 0){
       tokLength++;
-      printf("tokLength: %d\n", tokLength);
+      printf("tokLength: %c%d\n",*str, tokLength);
+      str++;
     }
     else{
     printf("entered else\n");  
     printf("tokLength: %d\n",tokLength);
-    tokenVec[tokNum] = (char *)malloc(tokLength +1);
+    printf("tokNUm: %d\n", tokNum);
     //copy the current token to this array, add a 0 char terminator
-    tokenVec[tokNum] = copyToken(str,tokLength,startIndex);
+    tokenVec[tokNum] = copyToken(str,tokLength);
+    printf("malloc-ed");    
     tokNum++; //go to the next token
-     startIndex = tokLength+1;
     tokLength = 0; //reset token length
-    
+    str++; //go to the next index of str
   }
   }
  
@@ -107,23 +107,23 @@ for(int i = 0; i < wordCount; i++){
 
 
 char ** mytoc(char *str, char delim){
-  char terminator[BUFLEN] = "exit"; 
 
   write(1,"$ ",2);
  int numBytesRead = read(0, str, BUFLEN);
- str[numBytesRead] = 0; //remove '\n' from end of str
- printf("Sentence entered!\n");
+ str[numBytesRead-1] = 0; //remove '\n' from end of str
+ printf("str[numBytesRead-1]: %c\n", str[numBytesRead-1]);
+ printf("Sentence entered: %s\n", str);
  printf("numBytes entered is:%d\n", numBytesRead);
  int wordCount = countWords(str, delim);
  printf("wordCount is:%d\n",wordCount);
 
  char** tokenVec = (char **)calloc(wordCount+1,sizeof(char *));
 
- /*tokenVec = allocateTokens(tokenVec, str,delim);
+ tokenVec = allocateTokens(tokenVec, str,delim);
  tokenVec[wordCount] = (char *)0;
- /*print contents of tokenVec to stdout
-   and free the memory
-   printTokenVec(tokenVec, wordCount);*/
+ //print contents of tokenVec to stdout
+  // and free the memory
+ printTokenVec(tokenVec, wordCount);
  return tokenVec;
 
 }
