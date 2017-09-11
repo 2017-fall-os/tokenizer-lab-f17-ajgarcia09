@@ -76,8 +76,22 @@ char ** allocateTokens(char ** tokenVec, char *str, char delim){
     }
     i++;
     str++; //go to the next index
-  
   }
+//allocate the token before the null terminating index
+ 
+    temp = str-tokLength;    
+    //printf("entered else, tokLength = %d\n", tokLength);
+    //storage for current token    
+    tokenVec[tokNum] = (char *)malloc(tokLength+1);
+    //printf("malloced tokenVec[tokNum]!\n");
+    //printf("tokNum = %d\n", tokNum);
+    //and its 0 char terminator
+    tokenVec[tokLength] = 0;
+    tokenVec[tokNum] = copyToken(temp,tokLength);
+    printf("tokenVec[tokNum] = %s\n",tokenVec[tokNum]);
+    printf("tokenVec[tokLength] = %s\n",tokenVec[tokLength]);
+    //tokNum++; //go to the next token
+    //tokLength = 0; //reset token length
   return tokenVec;
 }
 
@@ -125,9 +139,13 @@ char ** mytoc(char *str, char delim){
  char** tokenVec = (char **)calloc(wordCount+1,sizeof(char *));
  tokenVec[wordCount] = (char *)0;//zero pointer terminator
  printf("malloced tokenVec!\n");
- printf("before for loop\n");
+
+ tokenVec = allocateTokens(tokenVec, str, delim);
+
+ /*printf("before for loop\n");
  printf("wordCount = %d\n", wordCount);
-for(int i =0; i < wordCount; i++){
+
+ for(int i =0; i < wordCount; i++){
   printf("entered for loop");
   char * editedString = cutString(str, delim);
   int tokenLength = sizeOfToken(editedString, delim);
@@ -136,7 +154,7 @@ for(int i =0; i < wordCount; i++){
   currentToken = copyToken(editedString, tokenLength);
   tokenVec[i] = currentToken;
   str = editedString+tokenLength;
- }
+  }*/
  
 return tokenVec;
 }
