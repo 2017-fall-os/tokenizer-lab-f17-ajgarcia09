@@ -129,10 +129,10 @@ printf("tokenLength = %d\n", tokenLength);
 
 char ** mytoc(char *str, char delim){
 
-  //write(1,"$ ",2);
- //int numBytesRead = read(0, str, BUFLEN);
+  write(1,"$ ",2);
+ int numBytesRead = read(0, str, BUFLEN);
  printf("Sentence entered: %s\n", str);
- //printf("numBytes entered is:%d\n", numBytesRead);
+ printf("numBytes entered is:%d\n", numBytesRead);
 
  int wordCount = countWords(str, delim);
  
