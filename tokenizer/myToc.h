@@ -7,7 +7,7 @@ int countWords(char * str, char delim);
 
 char ** mytoc(char *str, char delim);
 
-char ** allocateTokens(char ** tokenVec, char *str,char delim);
+char ** allocateTokens(char ** tokenVec, char *str,char delim, int wordCount);
 
 char * copyToken(char *str, int tokLength);
 
