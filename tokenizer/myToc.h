@@ -11,5 +11,6 @@ char ** allocateTokens(char ** tokenVec, char *str,char delim);
 
 void printTokenVec(char ** tokenVec, int wordCount);
 
+int lengthOfTokenArray(char * str);
 
 #endif

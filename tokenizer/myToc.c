@@ -79,11 +79,20 @@ char ** allocateTokens(char ** tokenVec, char *str, char delim){
      return tokenVec;
 }
 
+int lengthOfTokenArray(char * str){
+  int length = 0;
+  while(*str){
+    length++;
+    str++;
+  }
+  return length;
+ }
+
 void printTokenVec(char ** tokenVec, int wordCount){
+  int numBytes = 0;
   for(int i = 0; i < wordCount; i++){
-    //printf("i = %d\n",i);
-    //printf("size of index: %d\n", sizeof(tokenVec[i])-1);
-     write(1,tokenVec[i],3);
+    numBytes = lengthOfTokenArray(tokenVec[i]);
+     write(1,tokenVec[i],numBytes);
      write(1, "\n", 1);
      //free(tokenVec[i]);
     }
@@ -93,7 +102,7 @@ void printTokenVec(char ** tokenVec, int wordCount){
 
 char ** mytoc(char *str, char delim){
 
-  write(1,"$ ",2);
+ write(1,"$ ",2);
  int numBytesRead = read(0, str, BUFLEN);
  str[numBytesRead-1] = '\0';
  printf("Sentence entered: %s\n", str);
@@ -107,6 +116,6 @@ char ** mytoc(char *str, char delim){
 
  tokenVec = allocateTokens(tokenVec, str, delim);
  printTokenVec(tokenVec, wordCount);
- 
+ write(1,"hiyo",4);
 return tokenVec;
 }
