@@ -51,10 +51,11 @@ char ** allocateTokens(char ** tokenVec, char *str, char delim){
   int tokLength =0;
   int tokNum=0;
   char * temp;
-  while(*str){
+  int i =0;
+ while(*str){
+   printf("str[i] = %c\n", *str);
     if(*str != delim){
       tokLength++;
-      str++;
     }
     //found a delimiter
     else{
@@ -71,9 +72,11 @@ char ** allocateTokens(char ** tokenVec, char *str, char delim){
     printf("tokenVec[tokLength] = %s\n",tokenVec[tokLength]);
     tokNum++; //go to the next token
     tokLength = 0; //reset token length
-    str++; //go to the next index
     
     }
+    i++;
+    str++; //go to the next index
+  
   }
   return tokenVec;
 }
@@ -88,6 +91,27 @@ void printTokenVec(char ** tokenVec, int wordCount){
 //free(tokenVec);
 }
 
+char * cutString (char * str, char delim){
+ char * newString = (char *)malloc(sizeof(char));
+ newString = str;
+ while(*newString == delim){
+     newString++;
+}
+
+return newString;
+}
+
+int sizeOfToken (char *str, char delim){
+
+    int tokenLength = 0;
+    while(*str != delim){
+      tokenLength++;
+ }
+printf("tokenLength = %d\n", tokenLength);
+ return tokenLength;
+}
+
+
 
 char ** mytoc(char *str, char delim){
 
@@ -101,9 +125,18 @@ char ** mytoc(char *str, char delim){
  char** tokenVec = (char **)calloc(wordCount+1,sizeof(char *));
  tokenVec[wordCount] = (char *)0;//zero pointer terminator
  printf("malloced tokenVec!\n");
+ printf("before for loop\n");
+ printf("wordCount = %d\n", wordCount);
+for(int i =0; i < wordCount; i++){
+  printf("entered for loop");
+  char * editedString = cutString(str, delim);
+  int tokenLength = sizeOfToken(editedString, delim);
+
+  char * currentToken = (char *)malloc(tokenLength+1);
+  currentToken = copyToken(editedString, tokenLength);
+  tokenVec[i] = currentToken;
+  str = editedString+tokenLength;
+ }
  
- tokenVec = allocateTokens(tokenVec,str,delim);
-
 return tokenVec;
-
 }

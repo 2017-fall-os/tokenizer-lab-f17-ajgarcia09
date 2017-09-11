@@ -11,7 +11,8 @@ void callMyToc(){
   char buf[BUFLEN] = "anita lava la tina";	     
   char delim = ' ';
   char ** mytoken =  mytoc(buf, delim);
-  /*int wordsInBuf = countWords(buf, delim);
+  int wordsInBuf = countWords(buf, delim);
+  /*printf("Printing tokenVec:\n");
     printTokenVec(mytoken,wordsInBuf);*/
 }
   
