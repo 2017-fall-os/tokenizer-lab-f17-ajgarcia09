@@ -8,17 +8,16 @@
 #define BUFLEN 1024
 
 void callMyToc(){
-  char buf[BUFLEN]; //= " anita  lava la tina";	     
+  char buf[BUFLEN];	     
   char delim = ' ';
   char ** mytoken =  mytoc(buf, delim);
-  /*int wordsInBuf = countWords(buf, delim);
-  printf("Printing tokenVec:\n");
-  printTokenVec(mytoken,wordsInBuf);*/
+  int wordsInBuf = countWords(buf, delim);
+  printTokenVec(mytoken,wordsInBuf);
 }
   
 
 int main(){
- for(;;){
+  for(;;){
   callMyToc();
   }
   return 0;
