@@ -94,16 +94,28 @@ void printTokenVec(char ** tokenVec, int wordCount){
     }
   }
 
-char ** mytoc(char *str, char delim){
+//compares two strings for equality.
+//used to exit the program
+int compStrings(char *str1,char  *str2){
 
- write(1,"$ ",2);
- int numBytesRead = read(0, str, BUFLEN);
- str[numBytesRead-1] = '\0';
+   while(*str1 && *str2){
+     if(*str1 != *str2){
+       return 0;
+     }
+     *str1++;
+     *str2++;
+   }
+   return 1;
+ }
+
+ char ** mytoc(char *str, char delim){
+
  int wordCount = countWords(str, delim);
  
  char** tokenVec = (char **)calloc(wordCount+1,sizeof(char *));
  tokenVec[wordCount] = (char *)0;//zero pointer terminator
  tokenVec = allocateTokens(tokenVec, str, delim);
-
+ printTokenVec(tokenVec,wordCount);
+  
  return tokenVec; 
 }

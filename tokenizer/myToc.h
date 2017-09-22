@@ -17,4 +17,8 @@ void printTokenVec(char ** tokenVec, int wordCount);
 //calculates the length of the each token in order to print it
 int lengthOfTokenArray(char * str);
 
+/*compares two strings and returns 1 if both strings are equal.
+  used to exit program.*/
+int compStrings(char *str1, char *str2);
+
 #endif

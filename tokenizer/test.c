@@ -7,18 +7,17 @@
 
 #define BUFLEN 1024
 
-void callMyToc(){
-  char buf[BUFLEN];	     
-  char delim = ' ';
-  char ** mytoken =  mytoc(buf, delim);
-  int wordsInBuf = countWords(buf, delim);
-  printTokenVec(mytoken,wordsInBuf);
-}
-  
-
 int main(){
   for(;;){
-  callMyToc();
+  char buf[BUFLEN];	     
+  char delim = ' ';
+  write(1,"$ ",2);
+  int numBytesRead = read(0, buf, BUFLEN);
+  buf[numBytesRead-1] = '\0';
+  if(compStrings(buf, "exit") == 1){
+    break;
+  }
+  char ** mytoken =  mytoc(buf, delim);
   }
   return 0;
 }
