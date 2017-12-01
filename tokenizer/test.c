@@ -10,7 +10,7 @@
 int main(){
   for(;;){
   char buf[BUFLEN];	     
-  char delim = ' ';
+  char delim = '|';
   write(1,"$ ",2);
   int numBytesRead = read(0, buf, BUFLEN);
   buf[numBytesRead-1] = '\0';
